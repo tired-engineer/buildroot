@@ -49,6 +49,14 @@ else
 UNBOUND_CONF_OPTS += --disable-dnscrypt
 endif
 
+ifeq ($(BR2_PACKAGE_UNBOUND_DNSTAP),y)
+UNBOUND_CONF_OPTS += --enable-dnstap
+UNBOUND_DEPENDENCIES += fstrm
+UNBOUND_DEPENDENCIES += protobuf-c
+else
+UNBOUND_CONF_OPTS += --disable-dnstap
+endif
+
 define UNBOUND_INSTALL_INIT_SYSV
 	$(INSTALL) -D -m 755 package/unbound/S70unbound \
 		$(TARGET_DIR)/etc/init.d/S70unbound

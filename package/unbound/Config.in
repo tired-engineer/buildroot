@@ -34,5 +34,23 @@ config BR2_PACKAGE_UNBOUND_DNSCRYPT
 	  https://tools.ietf.org/html/draft-ietf-tls-sni-encryption-00
 endif
 
+if BR2_PACKAGE_UNBOUND
+config BR2_PACKAGE_UNBOUND_DNSTAP
+	bool "enable dnstap"
+	select BR2_PACKAGE_FSTRM
+	select BR2_PACKAGE_PROTOBUF_C
+	help
+	  dnstap is a flexible, structured binary log format for
+	  DNS software.
+
+	  https://dnstap.info/
+
+	  It uses Protocol Buffers to encode events that occur
+	  inside DNS software in an implementation-neutral format.
+
+	  dnstap logging starts an extra thread that writes the log
+	  information to the destination.
+endif
+
 comment "unbound needs a toolchain w/ dynamic library"
 	depends on BR2_STATIC_LIBS
